@@ -18,6 +18,7 @@
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -48,6 +49,9 @@
         }
         ::-webkit-scrollbar-track {
             background: #f0f9ff;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
         }
         ::-webkit-scrollbar-thumb {
             background: #7dd3fc;
@@ -85,20 +89,20 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-b from-sky-200 via-sky-50 to-white text-slate-800 antialiased selection:bg-sky-400 selection:text-white overflow-x-hidden">
+<body class="bg-gradient-to-b from-sky-200 via-sky-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 antialiased selection:bg-sky-400 selection:text-white overflow-x-hidden transition-colors duration-300">
 
     <!-- =====================================================================
          1. INTRO SCREEN (LAYAR GELAP & KATA SELAMAT DATANG)
     ====================================================================== -->
     <div id="intro-screen" class="fixed inset-0 z-50 bg-slate-950 flex flex-col items-center justify-center px-6 text-center">
         <div class="max-w-xl mx-auto">
-            <div class="inline-block px-4 py-1.5 mb-4 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-400 text-xs font-semibold tracking-widest uppercase intro-text-anim">
+            <div data-i18n="intro_badge" class="inline-block px-4 py-1.5 mb-4 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-400 text-xs font-semibold tracking-widest uppercase intro-text-anim">
                 Portfolio & Biodata
             </div>
             <h1 id="welcome-title" class="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 intro-text-anim" style="animation-delay: 0.2s;">
-                Selamat Datang di Dunia <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-sky-500">ADN</span>
+                <span data-i18n="intro_welcome">Selamat Datang di Dunia</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-sky-500">ADN</span>
             </h1>
-            <p class="text-slate-400 text-sm sm:text-base max-w-md mx-auto intro-text-anim" style="animation-delay: 0.4s;">
+            <p data-i18n="intro_sub" class="text-slate-400 text-sm sm:text-base max-w-md mx-auto intro-text-anim" style="animation-delay: 0.4s;">
                 Menyiapkan profil Adrian Sembiring Depari...
             </p>
             <!-- Loading Bar Tipis -->
@@ -114,42 +118,66 @@
     <div id="main-wrapper" class="opacity-0 transition-opacity duration-1000">
         
         <!-- NAVBAR RESPONSIF -->
-        <header class="sticky top-0 z-40 backdrop-blur-md bg-white/70 border-b border-sky-200/60 shadow-sm">
+        <header class="sticky top-0 z-40 backdrop-blur-md bg-white/70 dark:bg-slate-900/80 border-b border-sky-200/60 dark:border-slate-800 shadow-sm transition-colors duration-300">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
                     <!-- Brand Logo -->
                     <a href="#home" class="flex items-center gap-2.5 group">
-                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-display font-extrabold text-lg shadow-md shadow-sky-200 group-hover:scale-105 transition-transform">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-display font-extrabold text-lg shadow-md shadow-sky-200 dark:shadow-sky-900/40 group-hover:scale-105 transition-transform">
                             A
                         </div>
-                        <span class="font-display font-extrabold text-xl tracking-tight text-slate-900">
+                        <span class="font-display font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
                             ADN<span class="text-sky-500">.</span>
                         </span>
                     </a>
 
-                    <!-- Desktop Menu -->
-                    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                        <a href="#home" class="hover:text-sky-600 transition-colors py-2">Home</a>
-                        <a href="#about" class="hover:text-sky-600 transition-colors py-2">About</a>
-                        <a href="#project" class="hover:text-sky-600 transition-colors py-2">Project</a>
-                        <a href="#contact" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-400 to-sky-500 text-white shadow-sm hover:shadow-md hover:from-sky-500 hover:to-sky-600 transition-all">
-                            Contact
-                        </a>
-                    </nav>
+                    <!-- Desktop Menu + Kontrol Bahasa & Tema -->
+                    <div class="hidden md:flex items-center gap-6">
+                        <nav class="flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                            <a href="#home" data-i18n="nav_home" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors py-2">Home</a>
+                            <a href="#about" data-i18n="nav_about" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors py-2">About</a>
+                            <a href="#project" data-i18n="nav_project" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors py-2">Project</a>
+                            <a href="#contact" data-i18n="nav_contact" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-400 to-sky-500 text-white shadow-sm hover:shadow-md hover:from-sky-500 hover:to-sky-600 transition-all">
+                                Contact
+                            </a>
+                        </nav>
 
-                    <!-- Mobile Menu Button -->
-                    <button id="mobile-menu-btn" aria-label="Buka Menu" class="md:hidden p-2.5 rounded-xl text-slate-700 hover:bg-sky-100 transition-colors">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
+                        <!-- Pemisah Tipis -->
+                        <div class="h-6 w-px bg-sky-200/80 dark:bg-slate-700"></div>
+
+                        <!-- Kontrol Bahasa (ID / EN) & Tema (Terang / Gelap) -->
+                        <div class="flex items-center gap-2">
+                            <button id="lang-toggle" aria-label="Ganti Bahasa" class="px-3 py-1.5 rounded-xl text-xs font-bold border border-sky-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800 text-sky-700 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-globe"></i>
+                                <span id="lang-label">ID</span>
+                            </button>
+                            <button id="theme-toggle" aria-label="Ganti Tema" class="w-9 h-9 rounded-xl border border-sky-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-sky-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center shadow-sm">
+                                <i id="theme-icon" class="fa-solid fa-moon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Controls + Menu Button -->
+                    <div class="flex md:hidden items-center gap-2">
+                        <button id="lang-toggle-mobile" aria-label="Ganti Bahasa" class="px-2.5 py-1.5 rounded-xl text-xs font-bold border border-sky-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800 text-sky-700 dark:text-sky-400">
+                            <span id="lang-label-mobile">ID</span>
+                        </button>
+                        <button id="theme-toggle-mobile" aria-label="Ganti Tema" class="w-9 h-9 rounded-xl border border-sky-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800 text-slate-700 dark:text-amber-400 flex items-center justify-center">
+                            <i id="theme-icon-mobile" class="fa-solid fa-moon"></i>
+                        </button>
+                        <button id="mobile-menu-btn" aria-label="Buka Menu" class="p-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-sky-100 dark:hover:bg-slate-800 transition-colors">
+                            <i class="fa-solid fa-bars text-xl"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <!-- Mobile Dropdown Menu -->
-            <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-b border-sky-100 px-4 pt-2 pb-5 space-y-2 shadow-lg">
-                <a href="#home" class="mobile-link block px-4 py-3 rounded-xl font-semibold text-slate-700 hover:bg-sky-50 hover:text-sky-600">Home</a>
-                <a href="#about" class="mobile-link block px-4 py-3 rounded-xl font-semibold text-slate-700 hover:bg-sky-50 hover:text-sky-600">About</a>
-                <a href="#project" class="mobile-link block px-4 py-3 rounded-xl font-semibold text-slate-700 hover:bg-sky-50 hover:text-sky-600">Project</a>
-                <a href="#contact" class="mobile-link block px-4 py-3 rounded-xl font-semibold bg-sky-500 text-white text-center shadow-sm">Contact</a>
+            <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-b border-sky-100 dark:border-slate-800 px-4 pt-2 pb-5 space-y-2 shadow-lg">
+                <a href="#home" data-i18n="nav_home" class="mobile-link block px-4 py-3 rounded-xl font-semibold text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600 dark:hover:text-sky-400">Home</a>
+                <a href="#about" data-i18n="nav_about" class="mobile-link block px-4 py-3 rounded-xl font-semibold text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600 dark:hover:text-sky-400">About</a>
+                <a href="#project" data-i18n="nav_project" class="mobile-link block px-4 py-3 rounded-xl font-semibold text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600 dark:hover:text-sky-400">Project</a>
+                <a href="#contact" data-i18n="nav_contact" class="mobile-link block px-4 py-3 rounded-xl font-semibold bg-sky-500 text-white text-center shadow-sm">Contact</a>
             </div>
         </header>
 
@@ -158,83 +186,83 @@
         ====================================================================== -->
         <section id="home" class="relative pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
             <!-- Dekorasi Cahaya Latar -->
-            <div class="absolute -top-24 -right-24 w-80 h-80 bg-sky-300/40 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute top-40 -left-24 w-72 h-72 bg-white/80 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -top-24 -right-24 w-80 h-80 bg-sky-300/40 dark:bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-40 -left-24 w-72 h-72 bg-white/80 dark:bg-sky-400/10 rounded-full blur-3xl pointer-events-none"></div>
 
             <div class="max-w-6xl mx-auto relative z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
                     
                     <!-- Kolom Kiri: Sapaan & Kartu Biodata -->
                     <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-sky-200 shadow-sm text-sky-700 text-xs sm:text-sm font-semibold">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 dark:bg-slate-800/90 border border-sky-200 dark:border-slate-700 shadow-sm text-sky-700 dark:text-sky-400 text-xs sm:text-sm font-semibold">
                             <span class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
-                            Halo! Kenalin gua ADN 👋
+                            <span data-i18n="home_badge">Halo! Kenalin gua ADN 👋</span>
                         </div>
 
-                        <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
+                        <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight">
                             Adrian Sembiring Depari
-                            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-sky-700 mt-1">
+                            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-sky-700 dark:from-sky-400 dark:to-sky-300 mt-1">
                                 ( ADN )
                             </span>
                         </h1>
 
-                        <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        <p data-i18n="home_desc" class="text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                             Pelajar yang antusias mengeksplorasi dunia teknologi, ngoding script Python, bikin website, dan pastinya hobi main game!
                         </p>
 
                         <!-- Grid Biodata Lengkap -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2 text-left">
                             <!-- Item Nama -->
-                            <div class="bg-white/85 backdrop-blur-sm p-4 rounded-2xl border border-sky-100 shadow-sm hover:shadow-md transition-all flex items-center gap-3.5">
-                                <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0 text-lg">
+                            <div class="bg-white/85 dark:bg-slate-800/80 backdrop-blur-sm p-4 rounded-2xl border border-sky-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all flex items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 text-lg">
                                     <i class="fa-solid fa-user"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Nama Lengkap</p>
-                                    <p class="font-bold text-slate-800 text-sm sm:text-base">Adrian Sembiring Depari (ADN)</p>
+                                    <p data-i18n="bio_name_label" class="text-xs font-medium text-slate-400 uppercase tracking-wider">Nama Lengkap</p>
+                                    <p class="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">Adrian Sembiring Depari (ADN)</p>
                                 </div>
                             </div>
 
                             <!-- Item Kelas -->
-                            <div class="bg-white/85 backdrop-blur-sm p-4 rounded-2xl border border-sky-100 shadow-sm hover:shadow-md transition-all flex items-center gap-3.5">
-                                <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0 text-lg">
+                            <div class="bg-white/85 dark:bg-slate-800/80 backdrop-blur-sm p-4 rounded-2xl border border-sky-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all flex items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 text-lg">
                                     <i class="fa-solid fa-graduation-cap"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Kelas</p>
-                                    <p class="font-bold text-slate-800 text-sm sm:text-base">9D</p>
+                                    <p data-i18n="bio_class_label" class="text-xs font-medium text-slate-400 uppercase tracking-wider">Kelas</p>
+                                    <p class="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">9D</p>
                                 </div>
                             </div>
 
                             <!-- Item Sekolah -->
-                            <div class="bg-white/85 backdrop-blur-sm p-4 rounded-2xl border border-sky-100 shadow-sm hover:shadow-md transition-all flex items-center gap-3.5">
-                                <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0 text-lg">
+                            <div class="bg-white/85 dark:bg-slate-800/80 backdrop-blur-sm p-4 rounded-2xl border border-sky-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all flex items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 text-lg">
                                     <i class="fa-solid fa-school"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Sekolah</p>
-                                    <p class="font-bold text-slate-800 text-sm sm:text-base">SMPN 24 Depok</p>
+                                    <p data-i18n="bio_school_label" class="text-xs font-medium text-slate-400 uppercase tracking-wider">Sekolah</p>
+                                    <p class="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">SMPN 24 Depok</p>
                                 </div>
                             </div>
 
                             <!-- Item Hobby -->
-                            <div class="bg-white/85 backdrop-blur-sm p-4 rounded-2xl border border-sky-100 shadow-sm hover:shadow-md transition-all flex items-center gap-3.5">
-                                <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0 text-lg">
+                            <div class="bg-white/85 dark:bg-slate-800/80 backdrop-blur-sm p-4 rounded-2xl border border-sky-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all flex items-center gap-3.5">
+                                <div class="w-11 h-11 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 text-lg">
                                     <i class="fa-solid fa-gamepad"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Hobby</p>
-                                    <p class="font-bold text-slate-800 text-sm sm:text-base">Main Game</p>
+                                    <p data-i18n="bio_hobby_label" class="text-xs font-medium text-slate-400 uppercase tracking-wider">Hobby</p>
+                                    <p data-i18n="bio_hobby_val" class="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">Main Game</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Tombol Aksi -->
                         <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                            <a href="#project" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 to-sky-600 text-white font-semibold shadow-lg shadow-sky-200 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2">
-                                <i class="fa-solid fa-rocket"></i> Lihat Project Gua
+                            <a href="#project" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 to-sky-600 text-white font-semibold shadow-lg shadow-sky-200 dark:shadow-sky-950/60 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-rocket"></i> <span data-i18n="btn_projects">Lihat Project Gua</span>
                             </a>
-                            <a href="#contact" class="px-6 py-3.5 rounded-2xl bg-white text-sky-700 border border-sky-200 font-semibold shadow-sm hover:bg-sky-50 transition-all">
+                            <a href="#contact" data-i18n="btn_contact" class="px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-slate-700 font-semibold shadow-sm hover:bg-sky-50 dark:hover:bg-slate-700 transition-all">
                                 Hubungi Gua
                             </a>
                         </div>
@@ -243,11 +271,11 @@
                     <!-- Kolom Kanan: Kartu Visual Profil ADN -->
                     <div class="lg:col-span-5 flex justify-center">
                         <div class="relative w-full max-w-sm float-anim">
-                            <div class="bg-gradient-to-b from-white to-sky-50 p-6 sm:p-8 rounded-3xl border border-white shadow-xl shadow-sky-200/60 text-center">
+                            <div class="bg-gradient-to-b from-white to-sky-50 dark:from-slate-800 dark:to-slate-900 p-6 sm:p-8 rounded-3xl border border-white dark:border-slate-700 shadow-xl shadow-sky-200/60 dark:shadow-slate-950/70 text-center transition-colors">
                                 <!-- Avatar SVG Keren Bertema Sky Blue -->
-                                <div class="w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-3xl bg-gradient-to-tr from-sky-400 to-sky-200 p-1.5 shadow-inner mb-5">
-                                    <div class="w-full h-full rounded-2xl bg-white flex flex-col items-center justify-center relative overflow-hidden">
-                                        <span class="font-display font-black text-4xl sm:text-5xl text-transparent bg-clip-text bg-gradient-to-br from-sky-500 to-sky-700">
+                                <div class="w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-3xl bg-gradient-to-tr from-sky-400 to-sky-200 dark:from-sky-500 dark:to-sky-700 p-1.5 shadow-inner mb-5">
+                                    <div class="w-full h-full rounded-2xl bg-white dark:bg-slate-900 flex flex-col items-center justify-center relative overflow-hidden">
+                                        <span class="font-display font-black text-4xl sm:text-5xl text-transparent bg-clip-text bg-gradient-to-br from-sky-500 to-sky-700 dark:from-sky-400 dark:to-sky-200">
                                             ADN
                                         </span>
                                         <span class="text-[11px] font-bold tracking-widest text-sky-400 uppercase mt-1">
@@ -256,23 +284,23 @@
                                     </div>
                                 </div>
 
-                                <h2 class="font-display font-bold text-xl text-slate-900">Adrian Sembiring Depari</h2>
-                                <p class="text-sm text-sky-600 font-medium mt-0.5">Siswa Kelas 9D • SMPN 24 Depok</p>
+                                <h2 class="font-display font-bold text-xl text-slate-900 dark:text-white">Adrian Sembiring Depari</h2>
+                                <p data-i18n="card_subtitle" class="text-sm text-sky-600 dark:text-sky-400 font-medium mt-0.5">Siswa Kelas 9D • SMPN 24 Depok</p>
 
-                                <div class="mt-6 pt-5 border-t border-sky-100 flex justify-around text-center">
+                                <div class="mt-6 pt-5 border-t border-sky-100 dark:border-slate-700 flex justify-around text-center">
                                     <div>
-                                        <p class="font-display font-extrabold text-lg text-slate-800">Python</p>
-                                        <p class="text-xs text-slate-500">Scripting</p>
+                                        <p class="font-display font-extrabold text-lg text-slate-800 dark:text-slate-100">Python</p>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Scripting</p>
                                     </div>
-                                    <div class="w-px bg-sky-100"></div>
+                                    <div class="w-px bg-sky-100 dark:bg-slate-700"></div>
                                     <div>
-                                        <p class="font-display font-extrabold text-lg text-slate-800">Web</p>
-                                        <p class="text-xs text-slate-500">Developer</p>
+                                        <p class="font-display font-extrabold text-lg text-slate-800 dark:text-slate-100">Web</p>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Developer</p>
                                     </div>
-                                    <div class="w-px bg-sky-100"></div>
+                                    <div class="w-px bg-sky-100 dark:bg-slate-700"></div>
                                     <div>
-                                        <p class="font-display font-extrabold text-lg text-slate-800">Scratch</p>
-                                        <p class="text-xs text-slate-500">Game Dev</p>
+                                        <p class="font-display font-extrabold text-lg text-slate-800 dark:text-slate-100">Game</p>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Scratch & HTML</p>
                                     </div>
                                 </div>
                             </div>
@@ -286,45 +314,45 @@
         <!-- =====================================================================
              SECTION 2: ABOUT (TENTANG GUA)
         ====================================================================== -->
-        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white/60 via-sky-50/80 to-white">
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white/60 via-sky-50/80 to-white dark:from-slate-950/60 dark:via-slate-900/90 dark:to-slate-950 transition-colors">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-10">
-                    <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-sky-100 px-3.5 py-1.5 rounded-full">
+                    <span class="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-950 px-3.5 py-1.5 rounded-full">
                         About Me
                     </span>
-                    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
-                        Tentang <span class="text-sky-500">Gua</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">
+                        <span data-i18n="about_title_1">Tentang</span> <span data-i18n="about_title_2" class="text-sky-500">Gua</span>
                     </h2>
                 </div>
 
-                <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-sky-100 shadow-lg shadow-sky-100/50 space-y-5 text-slate-600 text-base sm:text-lg leading-relaxed">
-                    <p>
-                        Halo semuanya! Nama gua <strong class="text-slate-900">Adrian Sembiring Depari</strong>, biasa dipanggil <strong class="text-sky-600">ADN</strong>. Sekarang gua lagi duduk di bangku <strong class="text-slate-800">kelas 9D di SMPN 24 Depok</strong>.
+                <div class="bg-white/90 dark:bg-slate-800/85 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-sky-100 dark:border-slate-700 shadow-lg shadow-sky-100/50 dark:shadow-slate-950/60 space-y-5 text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                    <p data-i18n="about_p1">
+                        Halo semuanya! Nama gua <strong class="text-slate-900 dark:text-white">Adrian Sembiring Depari</strong>, biasa dipanggil <strong class="text-sky-600 dark:text-sky-400">ADN</strong>. Sekarang gua lagi duduk di bangku <strong class="text-slate-800 dark:text-slate-200">kelas 9D di SMPN 24 Depok</strong>.
                     </p>
-                    <p>
-                        Di luar kegiatan sekolah, hobi utama gua adalah <strong class="text-slate-800">main game</strong>. Dari kesukaan gua main game itulah, rasa penasaran gua mulai muncul: <em>"Gimana sih cara kerja di balik sebuah game atau website?"</em>
+                    <p data-i18n="about_p2">
+                        Di luar kegiatan sekolah, hobi utama gua adalah <strong class="text-slate-800 dark:text-slate-200">main game</strong>. Dari kesukaan gua main game itulah, rasa penasaran gua mulai muncul: <em>"Gimana sih cara kerja di balik sebuah game atau website?"</em>
                     </p>
-                    <p>
-                        Akhirnya gua mulai iseng-iseng belajar ngoding secara otodidak. Mulai dari bikin script <strong class="text-sky-600">Python</strong> sederhana seperti web scraping buat ngambil data otomatis, belajar ngerancang tampilan <strong class="text-sky-600">website</strong> kayak yang lagi lu liat sekarang, sampai bikin game interaktif sendiri pakai <strong class="text-sky-600">Scratch</strong>. Buat gua, ngoding itu seru karena kita bisa bikin ide di kepala jadi nyata!
+                    <p data-i18n="about_p3">
+                        Akhirnya gua mulai iseng-iseng belajar ngoding secara otodidak. Mulai dari bikin script <strong class="text-sky-600 dark:text-sky-400">Python</strong> sederhana seperti web scraping buat ngambil data otomatis, belajar ngerancang tampilan <strong class="text-sky-600 dark:text-sky-400">website</strong> kayak yang lagi lu liat sekarang, sampai bikin game interaktif sendiri pakai <strong class="text-sky-600 dark:text-sky-400">Scratch dan HTML</strong>. Buat gua, ngoding itu seru karena kita bisa bikin ide di kepala jadi nyata!
                     </p>
                 </div>
             </div>
         </section>
 
         <!-- =====================================================================
-             SECTION 3: PROJECT & PREVIEW GAME SCRATCH
+             SECTION 3: PROJECT & PREVIEW GAME SCRATCH + HTML
         ====================================================================== -->
-        <section id="project" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-sky-100/60 to-sky-50">
+        <section id="project" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-sky-100/60 to-sky-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 transition-colors">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center max-w-2xl mx-auto mb-14">
-                    <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-white px-3.5 py-1.5 rounded-full shadow-sm">
+                    <span class="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400 bg-white dark:bg-slate-800 px-3.5 py-1.5 rounded-full shadow-sm">
                         My Works
                     </span>
-                    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
-                        Project <span class="text-sky-500">Karya Gua</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">
+                        <span data-i18n="proj_title_1">Project</span> <span data-i18n="proj_title_2" class="text-sky-500">Karya Gua</span>
                     </h2>
-                    <p class="text-slate-600 mt-3 text-sm sm:text-base">
-                        Beberapa hal yang udah gua pelajari dan buat di waktu luang, mulai dari otomatisasi Python, web development, hingga game Scratch.
+                    <p data-i18n="proj_subtitle" class="text-slate-600 dark:text-slate-300 mt-3 text-sm sm:text-base">
+                        Beberapa hal yang udah gua pelajari dan buat di waktu luang, mulai dari otomatisasi Python, web development, hingga game Scratch & HTML.
                     </p>
                 </div>
 
@@ -332,98 +360,112 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-14">
                     
                     <!-- Project 1: Python Script -->
-                    <div class="bg-white rounded-3xl p-6 sm:p-7 border border-sky-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <div class="bg-white dark:bg-slate-800/90 rounded-3xl p-6 sm:p-7 border border-sky-100 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 text-white flex items-center justify-center text-2xl shadow-md shadow-sky-200 mb-5">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 text-white flex items-center justify-center text-2xl shadow-md shadow-sky-200 dark:shadow-sky-950/60 mb-5">
                                 <i class="fa-brands fa-python"></i>
                             </div>
-                            <h3 class="font-display font-bold text-xl text-slate-900 mb-2">
+                            <h3 data-i18n="p1_title" class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">
                                 Script Python Sederhana
                             </h3>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                                Membuat berbagai script otomatisasi menggunakan Python, salah satunya adalah <strong class="text-slate-800">Web Scraping</strong> untuk mengekstrak dan mengumpulkan data dari halaman web secara cepat dan rapi.
+                            <p data-i18n="p1_desc" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
+                                Membuat berbagai script otomatisasi menggunakan Python, salah satunya adalah <strong class="text-slate-800 dark:text-white">Web Scraping</strong> untuk mengekstrak dan mengumpulkan data dari halaman web secara cepat dan rapi.
                             </p>
                         </div>
-                        <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">Python</span>
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">Web Scraping</span>
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">Automation</span>
+                        <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">Python</span>
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">Web Scraping</span>
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">Automation</span>
                         </div>
                     </div>
 
                     <!-- Project 2: Membuat Website -->
-                    <div class="bg-white rounded-3xl p-6 sm:p-7 border border-sky-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <div class="bg-white dark:bg-slate-800/90 rounded-3xl p-6 sm:p-7 border border-sky-100 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 text-white flex items-center justify-center text-2xl shadow-md shadow-sky-200 mb-5">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 text-white flex items-center justify-center text-2xl shadow-md shadow-sky-200 dark:shadow-sky-950/60 mb-5">
                                 <i class="fa-solid fa-code"></i>
                             </div>
-                            <h3 class="font-display font-bold text-xl text-slate-900 mb-2">
+                            <h3 data-i18n="p2_title" class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">
                                 Pembuatan Website
                             </h3>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            <p data-i18n="p2_desc" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
                                 Merancang dan membangun website responsif yang enak dilihat di HP maupun laptop dengan tampilan modern, animasi interaktif, dan struktur kode yang bersih.
                             </p>
                         </div>
-                        <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">HTML5</span>
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">Tailwind CSS</span>
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">JavaScript</span>
+                        <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">HTML5</span>
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">Tailwind CSS</span>
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">JavaScript</span>
                         </div>
                     </div>
 
-                    <!-- Project 3: Membuat Game Sederhana -->
-                    <div class="bg-white rounded-3xl p-6 sm:p-7 border border-sky-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <!-- Project 3: Membuat Game Sederhana (Scratch & HTML) -->
+                    <div class="bg-white dark:bg-slate-800/90 rounded-3xl p-6 sm:p-7 border border-sky-100 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 text-white flex items-center justify-center text-2xl shadow-md shadow-sky-200 mb-5">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 text-white flex items-center justify-center text-2xl shadow-md shadow-sky-200 dark:shadow-sky-950/60 mb-5">
                                 <i class="fa-solid fa-puzzle-piece"></i>
                             </div>
-                            <h3 class="font-display font-bold text-xl text-slate-900 mb-2">
-                                Game Sederhana (Scratch)
+                            <h3 data-i18n="p3_title" class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">
+                                Game Sederhana (Scratch & HTML)
                             </h3>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                                Mengembangkan logika permainan seru, sistem skor, dan kontrol karakter menggunakan platform <strong class="text-slate-800">Scratch</strong>. Lu bisa langsung cobain game gua di bawah ini!
+                            <p data-i18n="p3_desc" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
+                                Mengembangkan logika permainan seru, sistem skor, dan kontrol karakter menggunakan platform <strong class="text-slate-800 dark:text-white">Scratch</strong> maupun kode <strong class="text-slate-800 dark:text-white">HTML</strong> buatan sendiri. Lu bisa langsung cobain game gua di bawah ini!
                             </p>
                         </div>
-                        <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">Scratch</span>
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">Game Logic</span>
-                            <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">Interactive</span>
+                        <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">Scratch</span>
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">HTML Game</span>
+                            <span class="px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-semibold">Game Logic</span>
                         </div>
                     </div>
 
                 </div>
 
                 <!-- =============================================================
-                     AREA PLAYABLE SCRATCH GAME EMBED + TOMBOL LINK
+                     AREA PLAYABLE SCRATCH GAME EMBED + TOMBOL LINK SCRATCH & HTML
                 ============================================================== -->
-                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-sky-200 shadow-xl shadow-sky-200/40">
+                <div class="bg-white dark:bg-slate-800/90 rounded-3xl p-6 sm:p-8 border border-sky-200 dark:border-slate-700 shadow-xl shadow-sky-200/40 dark:shadow-slate-950/70">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
-                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 bg-sky-100 px-3 py-1 rounded-full mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-950 px-3 py-1 rounded-full mb-2">
                                 <i class="fa-solid fa-gamepad"></i> Playable Preview
                             </span>
-                            <h3 class="font-display text-2xl font-extrabold text-slate-900">
-                                Cobain Langsung demo Game Scratch Gua!
+                            <h3 data-i18n="game_box_title" class="font-display text-2xl font-extrabold text-slate-900 dark:text-white">
+                                Cobain Langsung Demo Game Gua!
                             </h3>
-                            <p class="text-slate-500 text-sm mt-1">
-                                Klik bendera hijau di layar game untuk mulai bermain langsung di website ini, atau buka lewat link Scratch.
+                            <p data-i18n="game_box_desc" class="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                                Klik bendera hijau di layar untuk main game Scratch, atau klik tombol di samping buat main game versi Scratch & HTML lain!
                             </p>
                         </div>
 
-                        <!-- TOMBOL LINK LANGSUNG KE SCRATCH (GANTI HREF-NYA DENGAN LINK GAME LU) -->
-                        <a id="scratch-direct-link" 
-                           href="https://scratch.mit.edu/projects/1396122233/" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-sky-600 text-white font-semibold text-sm shadow-md hover:shadow-lg hover:from-sky-600 hover:to-sky-700 transition-all shrink-0">
-                            <span>Buka di Scratch</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
+                        <!-- DUA TOMBOL LINK: SCRATCH & GAME HTML LAIN -->
+                        <div class="flex flex-wrap items-center gap-3 shrink-0">
+                            <!-- 1. Tombol Game Scratch -->
+                            <a id="scratch-direct-link" 
+                               href="https://scratch.mit.edu/projects/1396122233/" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-sky-600 text-white font-semibold text-sm shadow-md hover:shadow-lg hover:from-sky-600 hover:to-sky-700 transition-all">
+                                <i class="fa-solid fa-cat"></i>
+                                <span data-i18n="btn_scratch">Buka di Scratch</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+
+                            <!-- 2. TOMBOL GAME HTML LAIN (TEMPEL / COPY LINK GAME LU DI HREF BAWAH INI) -->
+                            <a id="html-game-link" 
+                               href="game.html" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-slate-900 dark:bg-slate-700 text-white font-semibold text-sm shadow-md hover:shadow-lg hover:bg-slate-800 dark:hover:bg-slate-600 transition-all">
+                                <i class="fa-solid fa-play text-sky-400"></i>
+                                <span data-i18n="btn_html_game">Mainkan Game HTML</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Container Iframe Scratch Responsif -->
-                    <!-- CATATAN UNTUK ADN: Ganti angka ID proyek di src (contoh: 10128407) dengan ID proyek Scratch lu sendiri -->
-                    <div class="relative w-full max-w-3xl mx-auto aspect-[4/3] rounded-2xl overflow-hidden border-2 border-sky-100 bg-sky-50 shadow-inner">
+                    <div class="relative w-full max-w-3xl mx-auto aspect-[4/3] rounded-2xl overflow-hidden border-2 border-sky-100 dark:border-slate-700 bg-sky-50 dark:bg-slate-900 shadow-inner">
                         <iframe 
                             id="scratch-iframe"
                             src="https://scratch.mit.edu/projects/1396122233/embed" 
@@ -435,11 +477,11 @@
                         </iframe>
                     </div>
 
-                    <!-- Petunjuk Singkat Ganti Link (Bisa dihapus kalau udah lu ganti) -->
+                    <!-- Petunjuk Singkat -->
                     <div class="mt-4 text-center">
-                        <p class="text-xs text-slate-400">
+                        <p data-i18n="game_tips" class="text-xs text-slate-400">
                             <i class="fa-solid fa-circle-info text-sky-400 mr-1"></i>
-                            Tips: Klik tombol <strong>"Buka di Scratch"</strong> di atas jika ingin bermain dalam layar penuh di situs resmi Scratch.
+                            Tips: Klik tombol <strong>"Buka di Scratch"</strong> untuk layar penuh di Scratch, atau klik <strong>"Mainkan Game HTML"</strong> untuk memainkan game HTML buatan gua!
                         </p>
                     </div>
                 </div>
@@ -449,15 +491,15 @@
         <!-- =====================================================================
              SECTION 4: CONTACT (WHATSAPP, TIKTOK, GITHUB)
         ====================================================================== -->
-        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-sky-50 via-white to-sky-100">
+        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-sky-50 via-white to-sky-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 transition-colors">
             <div class="max-w-4xl mx-auto text-center">
-                <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-sky-100 px-3.5 py-1.5 rounded-full">
+                <span class="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-950 px-3.5 py-1.5 rounded-full">
                     Connect With Me
                 </span>
-                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
-                    Sosial Media <span class="text-sky-500">Gua</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">
+                    <span data-i18n="contact_title_1">Sosial Media</span> <span data-i18n="contact_title_2" class="text-sky-500">Gua</span>
                 </h2>
-                <p class="text-slate-600 mt-3 max-w-xl mx-auto text-sm sm:text-base">
+                <p data-i18n="contact_subtitle" class="text-slate-600 dark:text-slate-300 mt-3 max-w-xl mx-auto text-sm sm:text-base">
                     Mau mabar, diskusi soal ngoding, atau sekadar say hi? Langsung aja klik salah satu akun sosial media gua di bawah ini!
                 </p>
 
@@ -466,40 +508,40 @@
                     
                     <!-- 1. WhatsApp -->
                     <a href="https://wa.me/6285692382270" target="_blank" rel="noopener noreferrer" 
-                       class="group bg-white p-6 rounded-3xl border border-sky-100 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all flex flex-col items-center">
-                        <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-3xl transition-colors mb-4 shadow-sm">
+                       class="group bg-white dark:bg-slate-800/90 p-6 rounded-3xl border border-sky-100 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-3xl transition-colors mb-4 shadow-sm">
                             <i class="fa-brands fa-whatsapp"></i>
                         </div>
-                        <h3 class="font-display font-bold text-lg text-slate-900">WhatsApp</h3>
-                        <p class="text-xs text-slate-500 mt-1">Chat langsung sama gua</p>
-                        <span class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-sky-600 group-hover:translate-x-1 transition-transform">
-                            Hubungi <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">WhatsApp</h3>
+                        <p data-i18n="wa_desc" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Chat langsung sama gua</p>
+                        <span class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-sky-600 dark:text-sky-400 group-hover:translate-x-1 transition-transform">
+                            <span data-i18n="wa_cta">Hubungi</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
                         </span>
                     </a>
 
                     <!-- 2. TikTok -->
                     <a href="https://www.tiktok.com/@adnn917" target="_blank" rel="noopener noreferrer" 
-                       class="group bg-white p-6 rounded-3xl border border-sky-100 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all flex flex-col items-center">
-                        <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-900 group-hover:bg-slate-900 group-hover:text-white flex items-center justify-center text-3xl transition-colors mb-4 shadow-sm">
+                       class="group bg-white dark:bg-slate-800/90 p-6 rounded-3xl border border-sky-100 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white group-hover:bg-slate-900 dark:group-hover:bg-sky-500 group-hover:text-white flex items-center justify-center text-3xl transition-colors mb-4 shadow-sm">
                             <i class="fa-brands fa-tiktok"></i>
                         </div>
-                        <h3 class="font-display font-bold text-lg text-slate-900">TikTok</h3>
-                        <p class="text-xs text-slate-500 mt-1">Konten & keseharian gua</p>
-                        <span class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-sky-600 group-hover:translate-x-1 transition-transform">
-                            Follow <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">TikTok</h3>
+                        <p data-i18n="tt_desc" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Konten & keseharian gua</p>
+                        <span class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-sky-600 dark:text-sky-400 group-hover:translate-x-1 transition-transform">
+                            <span data-i18n="tt_cta">Follow</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
                         </span>
                     </a>
 
                     <!-- 3. GitHub -->
                     <a href="https://github.com/adriannsdepari123-ops/sekolah" target="_blank" rel="noopener noreferrer" 
-                       class="group bg-white p-6 rounded-3xl border border-sky-100 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all flex flex-col items-center">
-                        <div class="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 group-hover:bg-sky-600 group-hover:text-white flex items-center justify-center text-3xl transition-colors mb-4 shadow-sm">
+                       class="group bg-white dark:bg-slate-800/90 p-6 rounded-3xl border border-sky-100 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-sky-50 dark:bg-sky-950 text-sky-600 dark:text-sky-400 group-hover:bg-sky-600 group-hover:text-white flex items-center justify-center text-3xl transition-colors mb-4 shadow-sm">
                             <i class="fa-brands fa-github"></i>
                         </div>
-                        <h3 class="font-display font-bold text-lg text-slate-900">GitHub</h3>
-                        <p class="text-xs text-slate-500 mt-1">Kumpulan source code & script</p>
-                        <span class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-sky-600 group-hover:translate-x-1 transition-transform">
-                            Lihat Repo <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">GitHub</h3>
+                        <p data-i18n="gh_desc" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Kumpulan source code & script</p>
+                        <span class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-sky-600 dark:text-sky-400 group-hover:translate-x-1 transition-transform">
+                            <span data-i18n="gh_cta">Lihat Repo</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
                         </span>
                     </a>
 
@@ -508,18 +550,117 @@
         </section>
 
         <!-- FOOTER -->
-        <footer class="py-8 px-4 text-center border-t border-sky-200/70 bg-white/80">
-            <p class="text-sm text-slate-500 font-medium">
-                &copy; 2026 <strong class="text-slate-800">Adrian Sembiring Depari (ADN)</strong> • Kelas 9D SMPN 24 Depok.
+        <footer class="py-8 px-4 text-center border-t border-sky-200/70 dark:border-slate-800 bg-white/80 dark:bg-slate-950/90 transition-colors">
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                &copy; 2026 <strong class="text-slate-800 dark:text-slate-200">Adrian Sembiring Depari (ADN)</strong> • <span data-i18n="footer_class">Kelas 9D SMPN 24 Depok.</span>
             </p>
         </footer>
 
     </div>
 
     <!-- =====================================================================
-         JAVASCRIPT UNTUK ANIMASI INTRO & INTERAKSI MENU
+         JAVASCRIPT: ANIMASI INTRO, MENU, TEMA (GELAP/TERANG), & BAHASA (ID/EN)
     ====================================================================== -->
     <script>
+        const translations = {
+            id: {
+                intro_badge: "Portfolio & Biodata",
+                intro_welcome: "Selamat Datang di Dunia",
+                intro_sub: "Menyiapkan profil Adrian Sembiring Depari...",
+                nav_home: "Home",
+                nav_about: "About",
+                nav_project: "Project",
+                nav_contact: "Contact",
+                home_badge: "Halo! Kenalin gua ADN 👋",
+                home_desc: "Pelajar yang antusias mengeksplorasi dunia teknologi, ngoding script Python, bikin website, dan pastinya hobi main game!",
+                bio_name_label: "Nama Lengkap",
+                bio_class_label: "Kelas",
+                bio_school_label: "Sekolah",
+                bio_hobby_label: "Hobby",
+                bio_hobby_val: "Main Game",
+                btn_projects: "Lihat Project Gua",
+                btn_contact: "Hubungi Gua",
+                card_subtitle: "Siswa Kelas 9D • SMPN 24 Depok",
+                about_title_1: "Tentang",
+                about_title_2: "Gua",
+                about_p1: 'Halo semuanya! Nama gua <strong class="text-slate-900 dark:text-white">Adrian Sembiring Depari</strong>, biasa dipanggil <strong class="text-sky-600 dark:text-sky-400">ADN</strong>. Sekarang gua lagi duduk di bangku <strong class="text-slate-800 dark:text-slate-200">kelas 9D di SMPN 24 Depok</strong>.',
+                about_p2: 'Di luar kegiatan sekolah, hobi utama gua adalah <strong class="text-slate-800 dark:text-slate-200">main game</strong>. Dari kesukaan gua main game itulah, rasa penasaran gua mulai muncul: <em>"Gimana sih cara kerja di balik sebuah game atau website?"</em>',
+                about_p3: 'Akhirnya gua mulai iseng-iseng belajar ngoding secara otodidak. Mulai dari bikin script <strong class="text-sky-600 dark:text-sky-400">Python</strong> sederhana seperti web scraping buat ngambil data otomatis, belajar ngerancang tampilan <strong class="text-sky-600 dark:text-sky-400">website</strong> kayak yang lagi lu liat sekarang, sampai bikin game interaktif sendiri pakai <strong class="text-sky-600 dark:text-sky-400">Scratch dan HTML</strong>. Buat gua, ngoding itu seru karena kita bisa bikin ide di kepala jadi nyata!',
+                proj_title_1: "Project",
+                proj_title_2: "Karya Gua",
+                proj_subtitle: "Beberapa hal yang udah gua pelajari dan buat di waktu luang, mulai dari otomatisasi Python, web development, hingga game Scratch & HTML.",
+                p1_title: "Script Python Sederhana",
+                p1_desc: 'Membuat berbagai script otomatisasi menggunakan Python, salah satunya adalah <strong class="text-slate-800 dark:text-white">Web Scraping</strong> untuk mengekstrak dan mengumpulkan data dari halaman web secara cepat dan rapi.',
+                p2_title: "Pembuatan Website",
+                p2_desc: "Merancang dan membangun website responsif yang enak dilihat di HP maupun laptop dengan tampilan modern, animasi interaktif, dan struktur kode yang bersih.",
+                p3_title: "Game Sederhana (Scratch & HTML)",
+                p3_desc: 'Mengembangkan logika permainan seru, sistem skor, dan kontrol karakter menggunakan platform <strong class="text-slate-800 dark:text-white">Scratch</strong> maupun kode <strong class="text-slate-800 dark:text-white">HTML</strong> buatan sendiri. Lu bisa langsung cobain game gua di bawah ini!',
+                game_box_title: "Cobain Langsung Demo Game Gua!",
+                game_box_desc: "Klik bendera hijau di layar untuk main game Scratch, atau klik tombol di samping buat main game versi Scratch & HTML lain!",
+                btn_scratch: "Buka di Scratch",
+                btn_html_game: "Mainkan Game HTML",
+                game_tips: '<i class="fa-solid fa-circle-info text-sky-400 mr-1"></i> Tips: Klik tombol <strong>"Buka di Scratch"</strong> untuk layar penuh di Scratch, atau klik <strong>"Mainkan Game HTML"</strong> untuk memainkan game HTML buatan gua!',
+                contact_title_1: "Sosial Media",
+                contact_title_2: "Gua",
+                contact_subtitle: "Mau mabar, diskusi soal ngoding, atau sekadar say hi? Langsung aja klik salah satu akun sosial media gua di bawah ini!",
+                wa_desc: "Chat langsung sama gua",
+                wa_cta: "Hubungi",
+                tt_desc: "Konten & keseharian gua",
+                tt_cta: "Follow",
+                gh_desc: "Kumpulan source code & script",
+                gh_cta: "Lihat Repo",
+                footer_class: "Kelas 9D SMPN 24 Depok."
+            },
+            en: {
+                intro_badge: "Portfolio & Biodata",
+                intro_welcome: "Welcome to the World of",
+                intro_sub: "Preparing Adrian Sembiring Depari's profile...",
+                nav_home: "Home",
+                nav_about: "About",
+                nav_project: "Projects",
+                nav_contact: "Contact",
+                home_badge: "Hi! Meet me, ADN 👋",
+                home_desc: "A student enthusiastic about exploring technology, coding Python scripts, building websites, and of course playing games!",
+                bio_name_label: "Full Name",
+                bio_class_label: "Class",
+                bio_school_label: "School",
+                bio_hobby_label: "Hobby",
+                bio_hobby_val: "Playing Games",
+                btn_projects: "View My Projects",
+                btn_contact: "Contact Me",
+                card_subtitle: "Grade 9D Student • SMPN 24 Depok",
+                about_title_1: "About",
+                about_title_2: "Me",
+                about_p1: 'Hello everyone! My name is <strong class="text-slate-900 dark:text-white">Adrian Sembiring Depari</strong>, usually called <strong class="text-sky-600 dark:text-sky-400">ADN</strong>. I am currently a <strong class="text-slate-800 dark:text-slate-200">9D student at SMPN 24 Depok</strong>.',
+                about_p2: 'Outside of school activities, my main hobby is <strong class="text-slate-800 dark:text-slate-200">playing games</strong>. From my love of gaming, my curiosity began to grow: <em>"How do things actually work behind a game or a website?"</em>',
+                about_p3: 'Eventually, I started teaching myself how to code. Starting from creating simple <strong class="text-sky-600 dark:text-sky-400">Python</strong> scripts like web scraping to extract data automatically, designing <strong class="text-sky-600 dark:text-sky-400">websites</strong> like the one you are seeing right now, to building my own interactive games using <strong class="text-sky-600 dark:text-sky-400">Scratch and HTML</strong>. For me, coding is fun because we can bring ideas in our head to life!',
+                proj_title_1: "My",
+                proj_title_2: "Projects",
+                proj_subtitle: "Some of the things I have learned and built in my free time, ranging from Python automation and web development to Scratch & HTML games.",
+                p1_title: "Simple Python Scripts",
+                p1_desc: 'Creating various automation scripts using Python, including <strong class="text-slate-800 dark:text-white">Web Scraping</strong> to extract and collect data from web pages quickly and neatly.',
+                p2_title: "Website Development",
+                p2_desc: "Designing and building responsive websites that look great on both phones and laptops with modern visuals, interactive animations, and clean code structure.",
+                p3_title: "Simple Games (Scratch & HTML)",
+                p3_desc: 'Developing fun game mechanics, scoring systems, and character controls using <strong class="text-slate-800 dark:text-white">Scratch</strong> as well as my own <strong class="text-slate-800 dark:text-white">HTML</strong> code. You can try my games right below!',
+                game_box_title: "Try My Game Demos Now!",
+                game_box_desc: "Click the green flag on the screen to play the Scratch game, or use the buttons beside to open Scratch & my other HTML game!",
+                btn_scratch: "Open in Scratch",
+                btn_html_game: "Play HTML Game",
+                game_tips: '<i class="fa-solid fa-circle-info text-sky-400 mr-1"></i> Tip: Click <strong>"Open in Scratch"</strong> for fullscreen on Scratch, or click <strong>"Play HTML Game"</strong> to play my HTML-based game!',
+                contact_title_1: "My",
+                contact_title_2: "Social Media",
+                contact_subtitle: "Want to play together, chat about coding, or just say hi? Feel free to click any of my social media accounts below!",
+                wa_desc: "Chat directly with me",
+                wa_cta: "Message",
+                tt_desc: "My content & daily life",
+                tt_cta: "Follow",
+                gh_desc: "Collection of source codes & scripts",
+                gh_cta: "View Repo",
+                footer_class: "Class 9D SMPN 24 Depok."
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             const introScreen = document.getElementById('intro-screen');
             const introProgress = document.getElementById('intro-progress');
@@ -553,13 +694,77 @@
                     mobileMenu.classList.toggle('hidden');
                 });
 
-                // Tutup menu otomatis saat link diklik
                 mobileLinks.forEach(link => {
                     link.addEventListener('click', () => {
                         mobileMenu.classList.add('hidden');
                     });
                 });
             }
+
+            // 4. Fitur Tema Gelap & Tema Terang
+            const htmlEl = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+            function applyTheme(isDark) {
+                if (isDark) {
+                    htmlEl.classList.add('dark');
+                    if (themeIcon) themeIcon.className = 'fa-solid fa-sun';
+                    if (themeIconMobile) themeIconMobile.className = 'fa-solid fa-sun';
+                    localStorage.setItem('adn_theme', 'dark');
+                } else {
+                    htmlEl.classList.remove('dark');
+                    if (themeIcon) themeIcon.className = 'fa-solid fa-moon';
+                    if (themeIconMobile) themeIconMobile.className = 'fa-solid fa-moon';
+                    localStorage.setItem('adn_theme', 'light');
+                }
+            }
+
+            // Cek preferensi tema tersimpan (default: terang / light)
+            const savedTheme = localStorage.getItem('adn_theme');
+            applyTheme(savedTheme === 'dark');
+
+            function toggleTheme() {
+                const isDark = !htmlEl.classList.contains('dark');
+                applyTheme(isDark);
+            }
+
+            if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+            if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+
+            // 5. Fitur Bahasa Indonesia & Bahasa Inggris
+            let currentLang = localStorage.getItem('adn_lang') || 'id';
+            const langToggle = document.getElementById('lang-toggle');
+            const langToggleMobile = document.getElementById('lang-toggle-mobile');
+            const langLabel = document.getElementById('lang-label');
+            const langLabelMobile = document.getElementById('lang-label-mobile');
+
+            function applyLanguage(lang) {
+                currentLang = lang;
+                htmlEl.setAttribute('lang', lang);
+                if (langLabel) langLabel.textContent = lang.toUpperCase();
+                if (langLabelMobile) langLabelMobile.textContent = lang.toUpperCase();
+                localStorage.setItem('adn_lang', lang);
+
+                const dict = translations[lang];
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key]) {
+                        el.innerHTML = dict[key];
+                    }
+                });
+            }
+
+            applyLanguage(currentLang);
+
+            function toggleLanguage() {
+                applyLanguage(currentLang === 'id' ? 'en' : 'id');
+            }
+
+            if (langToggle) langToggle.addEventListener('click', toggleLanguage);
+            if (langToggleMobile) langToggleMobile.addEventListener('click', toggleLanguage);
         });
     </script>
 </body>
